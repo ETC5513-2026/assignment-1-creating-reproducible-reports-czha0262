@@ -27,3 +27,56 @@ Personalized marketing is critical for driving customer engagement and sales in 
 # Research Question
 
 Does higher marketing spend per customer lead to higher purchase amounts? We will analyse the relationship between marketing expenditure (`marketing_spend`) and the actual amount spent by customers (`purchase_amount`), whilst controlling for factors such as customer segment (`segment`) and number of visits (`visits`).
+
+# **Dataset Introduction**
+
+```{r data-cleaning, echo=FALSE, include=FALSE}
+# Load raw data
+df <- read.csv("data/35962712_Chunjian Zhang.csv")
+
+# Clean date format
+df <- df %>%
+  mutate(
+    # Convert mixed date formats to consistent Date type
+    signup_date = case_when(
+      str_detect(signup_date, "/") ~ dmy(signup_date),
+      str_detect(signup_date, "-") ~ ymd(signup_date),
+      str_detect(signup_date, ",") ~ mdy(signup_date),
+      TRUE ~ NA_Date_
+    ),
+    # Create binary purchase indicator for conversion rate
+    made_purchase = ifelse(!is.na(purchase_amount) & purchase_amount > 0, 1, 0)
+  )
+
+# Remove rows with missing purchase_amount for analysis
+df_analysis <- df %>%
+  filter(!is.na(purchase_amount))
+
+# Create summary table for segment analysis
+segment_summary <- df %>%
+  group_by(segment) %>%
+  summarise(
+    n_customers = n(),
+    avg_marketing_spend = mean(marketing_spend, na.rm = TRUE),
+    avg_visits = mean(visits, na.rm = TRUE),
+    avg_purchase = mean(purchase_amount, na.rm = TRUE),
+    med_purchase = median(purchase_amount, na.rm = TRUE),
+    conversion_rate = mean(made_purchase, na.rm = TRUE) * 100
+  ) %>%
+  mutate(across(where(is.numeric), round, 2)) %>%
+  bind_rows(
+    df %>%
+      summarise(
+        segment = "Total",
+        n_customers = n(),
+        avg_marketing_spend = mean(marketing_spend, na.rm = TRUE),
+        avg_visits = mean(visits, na.rm = TRUE),
+        avg_purchase = mean(purchase_amount, na.rm = TRUE),
+        med_purchase = median(purchase_amount, na.rm = TRUE),
+        conversion_rate = mean(made_purchase, na.rm = TRUE) * 100
+      ) %>%
+      mutate(across(where(is.numeric), round, 2))
+  )
+```
+
+This dataset comprises 150 customer observations and seven variables documenting customer identification, registration information, marketing expenditure, and transaction behavior. Core variables include `customer_id`, `marketing_spend`, `visits`, `purchase_amount`, and `segment`, which classifies customers into Consumer, SMB, and Enterprise groups. Data preprocessing standardized heterogeneous `signup_date` formats using the `lubridate` package to ensure temporal consistency. Observations with missing `purchase_amount` were excluded to support valid conversion rate computation, and duplicate `customer_id` entries were verified to be absent. Records with missing values in the non‑essential `notes` field were retained to preserve sample size and analytical power.

@@ -53,6 +53,7 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#instruction" id="toc-instruction" class="nav-link active" data-scroll-target="#instruction">Instruction</a></li>
   <li><a href="#research-question" id="toc-research-question" class="nav-link" data-scroll-target="#research-question">Research Question</a></li>
+  <li><a href="#dataset-introduction" id="toc-dataset-introduction" class="nav-link" data-scroll-target="#dataset-introduction"><strong>Dataset Introduction</strong></a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="Assignment-1.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
@@ -96,6 +97,10 @@ ul.task-list li input[type="checkbox"] {
 <section id="research-question" class="level1">
 <h1>Research Question</h1>
 <p>Does higher marketing spend per customer lead to higher purchase amounts? We will analyse the relationship between marketing expenditure (<code>marketing_spend</code>) and the actual amount spent by customers (<code>purchase_amount</code>), whilst controlling for factors such as customer segment (<code>segment</code>) and number of visits (<code>visits</code>).</p>
+</section>
+<section id="dataset-introduction" class="level1">
+<h1><strong>Dataset Introduction</strong></h1>
+<p>This dataset comprises 150 customer observations and seven variables documenting customer identification, registration information, marketing expenditure, and transaction behavior. Core variables include <code>customer_id</code>, <code>marketing_spend</code>, <code>visits</code>, <code>purchase_amount</code>, and <code>segment</code>, which classifies customers into Consumer, SMB, and Enterprise groups. Data preprocessing standardized heterogeneous <code>signup_date</code> formats using the <code>lubridate</code> package to ensure temporal consistency. Observations with missing <code>purchase_amount</code> were excluded to support valid conversion rate computation, and duplicate <code>customer_id</code> entries were verified to be absent. Records with missing values in the non‑essential <code>notes</code> field were retained to preserve sample size and analytical power.</p>
 </section>
 
 </main>
