@@ -1,0 +1,12 @@
+---
+title: "AI declaration"
+author: "Chunjian Zhang"
+format: html
+editor: visual
+---
+
+## **The usage of AI**
+
+I utilized artificial intelligence tools to assist with resolving the table formatting issue, specifically addressing the problem of wide table columns exceeding the page width. The final solution implemented was **shortening the column names** to optimize the table layout and ensure proper fit within the PDF document.
+
+![](images/clipboard-1081766971.png){fig-align="center"}
