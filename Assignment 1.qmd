@@ -18,6 +18,7 @@ library(readr)
 library(lubridate)
 library(knitr)
 library(kableExtra)
+library(patchwork)
 ```
 
 # Instruction
@@ -80,3 +81,75 @@ segment_summary <- df %>%
 ```
 
 This dataset comprises 150 customer observations and seven variables documenting customer identification, registration information, marketing expenditure, and transaction behavior. Core variables include `customer_id`, `marketing_spend`, `visits`, `purchase_amount`, and `segment`, which classifies customers into Consumer, SMB, and Enterprise groups. Data preprocessing standardized heterogeneous `signup_date` formats using the `lubridate` package to ensure temporal consistency. Observations with missing `purchase_amount` were excluded to support valid conversion rate computation, and duplicate `customer_id` entries were verified to be absent. Records with missing values in the non‑essential `notes` field were retained to preserve sample size and analytical power.
+
+# **Dataset Description**
+
+The cleaned dataset contains `r nrow(df)` observations and `r ncol(df)` variables. A brief summary of the data by customer segment is shown below.
+
+```{r segment-table, echo=FALSE, warning=FALSE}
+segment_summary <- df %>%
+  group_by(segment) %>%
+  summarise(
+    n_customers = n(),
+    avg_marketing_spend = mean(marketing_spend, na.rm = TRUE),
+    avg_visits = mean(visits, na.rm = TRUE),
+    avg_purchase = mean(purchase_amount, na.rm = TRUE),
+    med_purchase = median(purchase_amount, na.rm = TRUE)
+  ) %>%
+  mutate(across(where(is.numeric), round, 2))
+
+total <- df %>%
+  summarise(
+    segment = "Total",
+    n_customers = n(),
+    avg_marketing_spend = mean(marketing_spend, na.rm = TRUE),
+    avg_visits = mean(visits, na.rm = TRUE),
+    avg_purchase = mean(purchase_amount, na.rm = TRUE),
+    med_purchase = median(purchase_amount, na.rm = TRUE)
+  ) %>%
+  mutate(across(where(is.numeric), round, 2))
+
+final_table <- bind_rows(segment_summary, total)
+
+final_table %>%
+  select(
+    Segment = segment,
+    `Number of Customers` = n_customers,
+    `Avg. Marketing Spend ($)` = avg_marketing_spend,
+    `Avg. Visits` = avg_visits,
+    `Avg. Purchase Amount ($)` = avg_purchase,
+    `Med. Purchase Amount ($)` = med_purchase
+  ) %>%
+  kable(caption = "Key Metrics by Customer Segment") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+```{r}
+#| label: main-plot
+#| echo: false
+#| fig-cap: "Marketing Spend vs Purchase Amount and Average Visits by Customer Segment"
+#| fig-width: 14
+#| fig-height: 6
+#| fig-dpi: 300
+
+df_clean <- df %>% filter(!is.na(purchase_amount))
+
+p1 <- ggplot(df_clean, aes(x = marketing_spend, y = purchase_amount, color = segment)) +
+  geom_point(alpha = 0.7, size = 2) +
+  labs(x = "Marketing Spend ($)", y = "Purchase Amount ($)") +
+  theme_minimal()
+
+p2 <- df_clean %>%
+  group_by(segment) %>%
+  summarise(avg_visits = mean(visits)) %>%
+  ggplot(aes(x = segment, y = avg_visits, fill = segment)) +
+  geom_col(alpha = 0.8) +
+  geom_text(aes(label = round(avg_visits, 1)), vjust = -0.3) +
+  labs(x = "Segment", y = "Avg Visits") +
+  ylim(0, 7) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+p1 + p2
+ggsave("E:/University of Monash/ETC5513 Collaborative and Reproducible Practices/Assignment 1/assignment-1-creating-reproducible-reports-czha0262/images/customer_plot.png", plot = p1 + p2, width = 12, height = 5, dpi = 300)
+```
