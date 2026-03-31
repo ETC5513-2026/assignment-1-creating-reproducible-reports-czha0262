@@ -86,7 +86,7 @@ This dataset comprises 150 customer observations and seven variables documenting
 
 The cleaned dataset contains `r nrow(df)` observations and `r ncol(df)` variables. A brief summary of the data by customer segment is shown below.
 
-```{r segment-table, echo=FALSE, warning=FALSE}
+```{r tbl-segment, echo=FALSE, warning=FALSE}
 segment_summary <- df %>%
   group_by(segment) %>%
   summarise(
@@ -114,18 +114,18 @@ final_table <- bind_rows(segment_summary, total)
 final_table %>%
   select(
     Segment = segment,
-    `Number of Customers` = n_customers,
-    `Avg. Marketing Spend ($)` = avg_marketing_spend,
+    `No. Customers` = n_customers,
+    `Avg. Spend ($)` = avg_marketing_spend,
     `Avg. Visits` = avg_visits,
-    `Avg. Purchase Amount ($)` = avg_purchase,
-    `Med. Purchase Amount ($)` = med_purchase
+    `Avg. Purchase ($)` = avg_purchase,
+    `Med. Purchase ($)` = med_purchase
   ) %>%
   kable(caption = "Key Metrics by Customer Segment") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
 ```{r}
-#| label: main-plot
+#| label: fig-customer-behavior
 #| echo: false
 #| fig-cap: "Marketing Spend vs Purchase Amount and Average Visits by Customer Segment"
 #| fig-width: 14
@@ -153,3 +153,11 @@ p2 <- df_clean %>%
 p1 + p2
 ggsave("E:/University of Monash/ETC5513 Collaborative and Reproducible Practices/Assignment 1/assignment-1-creating-reproducible-reports-czha0262/images/customer_plot.png", plot = p1 + p2, width = 12, height = 5, dpi = 300)
 ```
+
+# Results
+
+As shown in @tbl-segment, the SMB segment has the highest average purchase amount and average visit frequency among all customer groups.
+
+@fig-customer-behavior clearly illustrates the relationship between marketing spend and purchase amount across different segments, as well as the average visit frequency for each segment. The scatter plot on the left shows that SMB customers tend to generate higher purchase values with similar marketing investment compared to Consumer and Enterprise segments. The bar chart on the right further confirms that SMB customers have the highest average visit frequency at 5.9 times.
+
+These results demonstrate that the SMB segment provides the best return on marketing investment, which directly answers our research question. Compared with other segments, SMB customers have higher purchase amounts and visit frequencies, making them the most valuable customer group for marketing resource allocation.

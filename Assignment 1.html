@@ -59,6 +59,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#research-question" id="toc-research-question" class="nav-link" data-scroll-target="#research-question">Research Question</a></li>
   <li><a href="#dataset-introduction" id="toc-dataset-introduction" class="nav-link" data-scroll-target="#dataset-introduction"><strong>Dataset Introduction</strong></a></li>
   <li><a href="#dataset-description" id="toc-dataset-description" class="nav-link" data-scroll-target="#dataset-description"><strong>Dataset Description</strong></a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="Assignment-1.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
@@ -111,17 +112,22 @@ ul.task-list li input[type="checkbox"] {
 <h1><strong>Dataset Description</strong></h1>
 <p>The cleaned dataset contains 150 observations and 8 variables. A brief summary of the data by customer segment is shown below.</p>
 <div class="cell">
+<div id="tbl-segment" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-segment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Key Metrics by Customer Segment
+</figcaption>
+<div aria-describedby="tbl-segment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="table table-striped table-hover caption-top table-sm small">
-<caption>Key Metrics by Customer Segment</caption>
+<table class="table table-striped table-hover cell caption-top table-sm small">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Segment</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Number of Customers</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Avg. Marketing Spend ($)</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">No. Customers</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Avg. Spend ($)</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">Avg. Visits</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Avg. Purchase Amount ($)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Med. Purchase Amount ($)</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Avg. Purchase ($)</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Med. Purchase ($)</th>
 </tr>
 </thead>
 <tbody>
@@ -161,16 +167,29 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </div>
 </div>
+</figure>
+</div>
+</div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Assignment-1_files/figure-html/main-plot-1.png" class="img-fluid figure-img" width="4200"></p>
-<figcaption>Marketing Spend vs Purchase Amount and Average Visits by Customer Segment</figcaption>
+<div id="fig-customer-behavior" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-customer-behavior-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Assignment-1_files/figure-html/fig-customer-behavior-1.png" class="img-fluid figure-img" width="4200">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-customer-behavior-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Marketing Spend vs Purchase Amount and Average Visits by Customer Segment
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
+</section>
+<section id="results" class="level1">
+<h1>Results</h1>
+<p>As shown in <a href="#tbl-segment" class="quarto-xref">Table&nbsp;1</a>, the SMB segment has the highest average purchase amount and average visit frequency among all customer groups.</p>
+<p><a href="#fig-customer-behavior" class="quarto-xref">Figure&nbsp;1</a> clearly illustrates the relationship between marketing spend and purchase amount across different segments, as well as the average visit frequency for each segment. The scatter plot on the left shows that SMB customers tend to generate higher purchase values with similar marketing investment compared to Consumer and Enterprise segments. The bar chart on the right further confirms that SMB customers have the highest average visit frequency at 5.9 times.</p>
+<p>These results demonstrate that the SMB segment provides the best return on marketing investment, which directly answers our research question. Compared with other segments, SMB customers have higher purchase amounts and visit frequencies, making them the most valuable customer group for marketing resource allocation.</p>
 </section>
 
 </main>
