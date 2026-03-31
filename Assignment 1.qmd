@@ -23,3 +23,7 @@ library(kableExtra)
 # Instruction
 
 Personalized marketing is critical for driving customer engagement and sales in online retail. This report analyzes data from a recent quarter’s personalized marketing campaign. We examine how marketing spend per customer relates to purchase behavior. The goal is to provide data-driven insights for future marketing budget allocation.
+
+# Research Question
+
+Does higher marketing spend per customer lead to higher purchase amounts? We will analyse the relationship between marketing expenditure (`marketing_spend`) and the actual amount spent by customers (`purchase_amount`), whilst controlling for factors such as customer segment (`segment`) and number of visits (`visits`).
