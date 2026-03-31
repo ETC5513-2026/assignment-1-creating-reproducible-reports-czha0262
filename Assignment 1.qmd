@@ -20,6 +20,6 @@ library(knitr)
 library(kableExtra)
 ```
 
-```{r}
+# Instruction
 
-```
+Personalized marketing is critical for driving customer engagement and sales in online retail. This report analyzes data from a recent quarter’s personalized marketing campaign. We examine how marketing spend per customer relates to purchase behavior. The goal is to provide data-driven insights for future marketing budget allocation.
